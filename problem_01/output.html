@@ -45,7 +45,7 @@
         ],
             num_people = people.length, num_yrs = 100;
 
-        let people_alive = [], current_yr; is_alive = false;
+        let people_alive = [], current_yr, yrs_most_alive, yr_most_alive;
 
         // init people_alive w/zeroes
         for (y=0; y <= num_yrs; y++) {
@@ -58,30 +58,17 @@
             
             for (p=0; p < num_people; p++) {
 
-                if (current_yr == people[p].birth) {
-                    is_alive = true; 
-                } else if (current_yr > people[p].birth && current_yr < people[p].death) {
-                    is_alive = true;
-                } else {
-                    is_alive = false;
-                };
-
-                if (is_alive) {
-                    people_alive[current_yr - 1900]++;
+                if (current_yr == people[p].birth || (current_yr > people[p].birth && current_yr < people[p].death)) {
+                    people_alive[current_yr - 1900]++; 
                 };
                 
             };
 
         };
-
-        //find first yr w/most people alive
         
-        //
+        yrs_most_alive = Math.max.apply(Math, people_alive);
+        yr_most_alive = 1900 + people_alive.indexOf(yrs_most_alive);
 
-        for (i=0; i < people_alive.length; i++) {
-            console.log(1900 + i + ': ' + people_alive[i] + '\n');
-        };
-        
     </script>
   </body>
 </html>
