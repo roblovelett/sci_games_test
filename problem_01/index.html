@@ -28,14 +28,14 @@
                 death: 1931
             },
             { 
-                name: "Larry Winklestein",
-                birth: 1929,
-                death: 1952
-            },
-            { 
                 name: "Melinda Steinmaker",
                 birth: 1920,
                 death: 1982
+            },
+            { 
+                name: "Larry Winklestein",
+                birth: 1929,
+                death: 1952
             },
             { 
                 name: "Belinda Makerwitz",
@@ -45,28 +45,43 @@
         ],
             num_people = people.length, num_yrs = 100;
 
-        let people_alive = [], is_alive = false;
+        let people_alive = [], current_yr; is_alive = false;
 
         // init people_alive w/zeroes
         for (y=0; y <= num_yrs; y++) {
             people_alive[y] = 0;
         };
 
-        for (y=0; y <= num_yrs; y++) {
-            for(p=0; p < num_people; p++) {
-                if (people[p].birth == 1900 + y && people[p].death != 1900 + y) {
+        for (y=0; y < num_yrs; y++) {
+            
+            current_yr = 1900 + y; 
+            
+            for (p=0; p < num_people; p++) {
+
+                if (current_yr == people[p].birth) {
+                    is_alive = true; 
+                } else if (current_yr > people[p].birth && current_yr < people[p].death) {
                     is_alive = true;
-                } else if (people[p].death == 1900 + y) {
+                } else {
                     is_alive = false;
                 };
 
                 if (is_alive) {
-                    
-                } else (is_dead) {
-
+                    people_alive[current_yr - 1900]++;
                 };
+                
             };
+
         };
+
+        //find first yr w/most people alive
+        
+        //
+
+        for (i=0; i < people_alive.length; i++) {
+            console.log(1900 + i + ': ' + people_alive[i] + '\n');
+        };
+        
     </script>
   </body>
 </html>
