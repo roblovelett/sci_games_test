@@ -1,7 +1,56 @@
-CREATE TABLE `sci_games_test`.`player` (
-  `player_id` INT ZEROFILL NOT NULL AUTO_INCREMENT,
-  `name` VARCHAR(45) NOT NULL,
-  `credits` INT ZEROFILL NOT NULL,
-  `lifetime_spins` INT ZEROFILL NOT NULL,
-  `salt_value` VARCHAR(45) NOT NULL,
-  PRIMARY KEY (`player_id`));
+CREATE DATABASE  IF NOT EXISTS `sci_games_test` /*!40100 DEFAULT CHARACTER SET latin1 */;
+USE `sci_games_test`;
+-- MySQL dump 10.13  Distrib 5.7.17, for Win64 (x86_64)
+--
+-- Host: scigames    Database: sci_games_test
+-- ------------------------------------------------------
+-- Server version	5.7.19
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8 */;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+--
+-- Table structure for table `player`
+--
+
+DROP TABLE IF EXISTS `player`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `player` (
+  `player_id` int(6) unsigned zerofill NOT NULL,
+  `name` varchar(45) NOT NULL,
+  `credits` int(6) unsigned zerofill NOT NULL,
+  `lifetime_spins` int(6) unsigned zerofill NOT NULL,
+  `salt_value` varchar(255) NOT NULL,
+  PRIMARY KEY (`player_id`)
+) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `player`
+--
+
+LOCK TABLES `player` WRITE;
+/*!40000 ALTER TABLE `player` DISABLE KEYS */;
+INSERT INTO `player` VALUES (000001,'John',000012,001300,'EA71C25A7A602246B4C39824B855678894A96F43BB9B71319C39700A1E045222'),(000002,'Jane',000999,000002,'89E01536AC207279409D4DE1E5253E01F4A1769E696DB0D6062CA9B8F56767C8');
+/*!40000 ALTER TABLE `player` ENABLE KEYS */;
+UNLOCK TABLES;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+-- Dump completed on 2018-07-06 14:34:35
