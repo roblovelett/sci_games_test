@@ -1,5 +1,5 @@
 {
     "require": {
-        "mevdschee/php-crud-api": "dev-master"
+        "propel/propel": "~2.0@dev"
     }
 }

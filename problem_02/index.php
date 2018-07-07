@@ -38,7 +38,44 @@
 
         -->
         <?php
-          echo 'Hello Player <br />';  
+            
+            $host = "scigames";
+            $user = "root";
+            $password = "";
+            $db = "sci_games_test";
+            mysql_connect($host,$user,$password);
+            mysql_select_db($db);
+
+            if (isset($_POST['submit'])) {
+                
+                $player_id = $_REQUEST['player_id'];
+                $coins_won = $_REQUEST['coins_won'];
+                $coins_bet = $_REQUEST['coins_bet'];
+
+                //validation
+                    //check if player ID is Int & exists in DB
+                        // ! error msg
+                    //check if coins won &| coins bet is Int
+                        // ! error msg
+                // if valid
+                    //query
+
+                //$query = ;
+                //mysql_query($query);
+
+            };
+            
+        ?>
+
+        <form name="form" action="" method="post">
+            Player ID: <input type="text" name="player_id" id="player_id" value="" /><br />
+            Coins Won: <input type="text" name="coins_won" id="coins_won" value="" /><br />
+            Coins Bet: <input type="text" name="coins_bet" id="coins_bet" value="" /><br />
+            <input type="submit" name="submit" />
+        </form>
+        
+        <?php
+            
         ?>
     </body>
 </html>
