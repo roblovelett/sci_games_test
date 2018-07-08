@@ -52,9 +52,36 @@
                 $coins_won = $_REQUEST['coins_won'];
                 $coins_bet = $_REQUEST['coins_bet'];
 
-                // validation
-                if (is_numeric($player_id)) {
+                $validated = FALSE;
+                $valid_msg = 'must be a number';
+                
+                if (!is_numeric($player_id)) {
+                    echo('Player ID '.$valid_msg.'.');
+                    break;
+                } else if (!is_numeric($coins_won)) {
+                    echo('Coins Won '.$valid_msg.'.');
+                    break;
+                } else if (!is_numeric($coins_bet)) {
+                    echo ('Coins Bet '.$valid_msg.'.');
+                    break;
+                } else {
+                    $valid_msg = $valid_msg.' greater than zero.';
+                    
+                    if ($player_id < 1 ){
+                        echo('Player ID '.$valid_msg);
+                        break;
+                    } else if ($coins_won < 0) {
+                        echo('Coins Won '.$valid_msg);
+                        break;
+                    } else if ($coins_bet < 0) {
+                        echo('Coins Bet '.$valid_msg);
+                        break;
+                    } else {
+                        $validated = TRUE;
+                    };
+                };
 
+                if ($validated) {
                     $player_id_col = $db->query("SELECT * FROM player WHERE player_id=".$player_id.";");
                     $player_id_exists = $player_id_col->num_rows;
                     
@@ -62,24 +89,6 @@
                         echo 'Player ID'.$player_id.' does not exist';
                         break;
                     };
-
-                } else {
-                    echo('Player ID must be a number.');
-                    break;
-                };
-
-                if (is_numeric($coins_won)) {
-                    //
-                } else {
-                    echo('Coins Won must be a number.');
-                    break;
-                };
-
-                if (is_numeric($coins_bet)) {
-                    //
-                } else {
-                    echo('Coins Bet must be a number.');
-                    break;
                 };
             };
             
