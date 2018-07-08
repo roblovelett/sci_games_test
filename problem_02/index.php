@@ -42,9 +42,9 @@
             $host = "scigames";
             $user = "root";
             $password = "";
-            $db = "sci_games_test";
-            mysql_connect($host,$user,$password);
-            mysql_select_db($db);
+            $database = "sci_games_test";
+
+            $db = new mysqli($host, $user, $password, $database);
 
             if (isset($_POST['submit'])) {
                 
@@ -52,17 +52,35 @@
                 $coins_won = $_REQUEST['coins_won'];
                 $coins_bet = $_REQUEST['coins_bet'];
 
-                //validation
-                    //check if player ID is Int & exists in DB
-                        // ! error msg
-                    //check if coins won &| coins bet is Int
-                        // ! error msg
-                // if valid
-                    //query
+                // validation
+                if (is_numeric($player_id)) {
 
-                //$query = ;
-                //mysql_query($query);
+                    $player_id_col = $db->query("SELECT * FROM player WHERE player_id=".$player_id.";");
+                    $player_id_exists = $player_id_col->num_rows;
+                    
+                    if (!$player_id_exists) {
+                        echo 'Player ID'.$player_id.' does not exist';
+                        break;
+                    };
 
+                } else {
+                    echo('Player ID must be a number.');
+                    break;
+                };
+
+                if (is_numeric($coins_won)) {
+                    //
+                } else {
+                    echo('Coins Won must be a number.');
+                    break;
+                };
+
+                if (is_numeric($coins_bet)) {
+                    //
+                } else {
+                    echo('Coins Bet must be a number.');
+                    break;
+                };
             };
             
         ?>
@@ -73,9 +91,5 @@
             Coins Bet: <input type="text" name="coins_bet" id="coins_bet" value="" /><br />
             <input type="submit" name="submit" />
         </form>
-        
-        <?php
-            
-        ?>
     </body>
 </html>
