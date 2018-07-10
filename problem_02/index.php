@@ -65,6 +65,7 @@
                     echo ('Coins Bet '.$valid_msg.'.');
                     break;
                 } else {
+
                     $valid_msg = $valid_msg.' greater than zero.';
                     
                     if ($player_id < 1 ){
@@ -82,12 +83,47 @@
                 };
 
                 if ($validated) {
+
                     $player_id_col = $db->query("SELECT * FROM player WHERE player_id=".$player_id.";");
                     $player_id_exists = $player_id_col->num_rows;
                     
                     if (!$player_id_exists) {
                         echo 'Player ID'.$player_id.' does not exist';
                         break;
+                    } else {
+
+                        // read
+                        $credits = mysqli_fetch_array($db->query("SELECT credits FROM player WHERE player_id=".$player_id.";"), MYSQLI_NUM);
+                        $credits = $credits[0];
+
+                        $lifetime_spins = mysqli_fetch_array($db->query("SELECT lifetime_spins FROM player WHERE player_id=".$player_id.";"), MYSQLI_NUM);
+                        $lifetime_spins = $lifetime_spins[0];
+                        
+                        $name = mysqli_fetch_array($db->query("SELECT name FROM player WHERE player_id=".$player_id.";"), MYSQLI_NUM);
+                        $name = $name[0];
+
+                        $credits = $credits - $coins_bet + $coins_won;
+                        $lifetime_spins++;
+                        $returns = $credits/$lifetime_spins;
+                        $avg_return = $returns/$lifetime_spins;
+                        
+                        // update
+                        $db->query("UPDATE player SET credits=".$credits." WHERE player_id=".$player_id.";");
+                        $db->query("UPDATE player SET lifetime_spins=".$lifetime_spins." WHERE player_id=".$player_id.";");
+
+                        // create json obj
+                        $res = new stdClass();
+                        $res->player_id = $player_id;
+                        $res->name = $name;
+                        $res->credits = $credits;
+                        $res->lifetime_spins = $lifetime_spins;
+                        $res->avg_return = $avg_return;
+
+                        // write json
+                        $fp = fopen('output.json', 'w');
+                        fwrite($fp, json_encode((array)$res));
+                        fclose($fp);
+
                     };
                 };
             };
